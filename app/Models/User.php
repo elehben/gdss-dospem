@@ -12,12 +12,18 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+    protected $table = 'users';
+    protected $primaryKey = 'id_user';
+    public $incrementing = false; // Karena ID berupa string (U0001)
+    protected $keyType = 'string';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
      */
     protected $fillable = [
+        'id_user',
         'name',
         'email',
         'password',
@@ -44,5 +50,23 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // --- Helper Role ---
+    public function isAdmin()
+    {
+        // Logika: Admin adalah U0001 atau email tertentu
+        return $this->id_user === 'U0001' || $this->email === 'admin@gdss.com';
+    }
+
+    // --- Relasi ---
+    public function penilaians()
+    {
+        return $this->hasMany(penilaian::class, 'id_user', 'id_user');
+    }
+
+    public function preferensiWp()
+    {
+        return $this->hasMany(preferensi::class, 'id_user', 'id_user');
     }
 }

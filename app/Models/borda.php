@@ -8,5 +8,8 @@ class borda extends Model
 {
     protected $table = 'bobot_borda';
     protected  $primaryKey = 'ranking';
-    protected $guarded = ['rangking'];
+    protected $fillable = [
+        'ranking',
+        'bobot_borda',
+    ];
 }
