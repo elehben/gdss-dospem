@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('alternatifs', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('alternatif', function (Blueprint $table) {
+            $table->char('id_alt', 5)->primary();
+            $table->string('nama_alt');
         });
     }
 
@@ -22,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('alternatifs');
+        Schema::dropIfExists('alternatif');
     }
 };

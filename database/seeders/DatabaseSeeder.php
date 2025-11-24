@@ -17,9 +17,19 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
+
+        $this->call([
+            UserSeeder::class,
+            AlternatifSeeder::class,
+            KriteriaSeeder::class,
+            BobotBordaSeeder::class,
+            PenilaianSeeder::class, // Menyimpan nilai awal & terbobot (Looping DM)
+            PreferensiWpSeeder::class, // Menyimpan Vector S & V (Looping DM)
+            HasilBordaSeeder::class, // Hasil Akhir
         ]);
     }
 }
