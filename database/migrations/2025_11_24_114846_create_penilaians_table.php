@@ -18,6 +18,7 @@ return new class extends Migration
             $table->char('id_kriteria', 5);
             $table->decimal('nilai_awal', 10, 4);
             $table->decimal('nilai_terbobot', 10, 4);
+            $table->timestamps();
 
             $table->foreign('id_user')->references('id_user')
             ->on('users')->onDelete('cascade');
@@ -34,6 +35,7 @@ return new class extends Migration
             $table->decimal('perkalian', 10, 4);
             $table->decimal('skor_pref', 10, 4);
             $table->integer('rangking_wp');
+            $table->timestamps();
 
             $table->foreign('id_alt')->references('id_alt')
             ->on('alternatif')->onDelete('cascade');

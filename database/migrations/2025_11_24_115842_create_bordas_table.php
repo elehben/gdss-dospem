@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('bobot_borda', function (Blueprint $table) {
             $table->id('ranking');
             $table->integer('bobot_borda');
+            $table->timestamps();
         });
 
         Schema::create('hasil_borda', function (Blueprint $table) {
@@ -22,6 +23,7 @@ return new class extends Migration
             $table->decimal('total_poin', 10, 4);
             $table->decimal('nilai_borda', 10, 4);
             $table->integer('rangking_borda');
+            $table->timestamps();
 
             $table->foreign('id_alt')->references('id_alt')
             ->on('alternatif')->onDelete('cascade');
@@ -34,6 +36,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('bobot_borda');
-        Schema::dropIfExists('hasils');
+        Schema::dropIfExists('hasil_borda');
     }
 };

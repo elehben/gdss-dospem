@@ -1,0 +1,505 @@
+/* Page Banner WP */
+.page-banner-wp {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 20px;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+}
+
+.page-banner-content {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    position: relative;
+    z-index: 1;
+}
+
+.page-banner-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.page-banner-title {
+    font-weight: 800;
+    color: white;
+    font-size: 1.75rem;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.page-banner-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0.25rem 0 0;
+    font-size: 0.95rem;
+}
+
+.btn-revisi {
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    border-radius: 12px;
+    background: white;
+    color: #667eea;
+    border: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+    font-size: 0.9rem;
+}
+
+.btn-revisi:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    background: white;
+    color: #5a6fd6;
+}
+
+.btn-revisi i {
+    font-size: 1rem;
+}
+
+.btn-revisi.btn-back {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-revisi.btn-back:hover {
+    background: linear-gradient(135deg, #5a6fd6 0%, #6a4190 100%);
+    color: white;
+}
+
+.page-banner-decoration {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 8rem;
+    color: rgba(255, 255, 255, 0.15);
+    pointer-events: none;
+}
+
+/* Alert Custom */
+.alert-custom {
+    border: none;
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.alert-icon-custom {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+.alert-icon-custom.success {
+    background: rgba(25, 135, 84, 0.15);
+    color: #198754;
+}
+
+/* Top Result Card */
+.top-result-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 20px;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+}
+
+.top-result-badge {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: #ffd700;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    flex-shrink: 0;
+}
+
+.top-result-content {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+}
+
+.top-result-label {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+}
+
+.top-result-name {
+    font-weight: 800;
+    color: white;
+    margin: 0.25rem 0 1rem;
+    font-size: 1.5rem;
+}
+
+.top-result-stats {
+    display: flex;
+    gap: 2rem;
+}
+
+.top-result-stat {
+    display: flex;
+    flex-direction: column;
+}
+
+.top-result-stat .stat-label {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.top-result-stat .stat-value {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: white;
+}
+
+.top-result-decoration {
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 5rem;
+    color: rgba(255, 255, 255, 0.15);
+}
+
+/* Mini Cards */
+.mini-card-wp {
+    background: white;
+    border-radius: 16px;
+    padding: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0,0,0,0.05);
+    height: 100%;
+}
+
+.mini-card-wp:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+}
+
+.mini-card-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    color: white;
+    flex-shrink: 0;
+}
+
+.mini-card-icon.bg-purple { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+.mini-card-icon.bg-cyan { background: linear-gradient(135deg, #00c6fb 0%, #005bea 100%); }
+.mini-card-icon.bg-teal { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+.mini-card-icon.bg-green { background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%); }
+
+.mini-card-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.mini-card-label {
+    font-size: 0.7rem;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.mini-card-value {
+    font-weight: 700;
+    margin: 0;
+    color: #1a1a2e;
+    font-size: 1.75rem;
+    line-height: 1;
+}
+
+.mini-card-status {
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+/* Table Card */
+.table-card-wp {
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 5px 30px rgba(0,0,0,0.08);
+}
+
+.card-header-wp {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%);
+    color: white;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-header-wp h5 {
+    font-weight: 600;
+}
+
+.wp-badge {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+/* Table */
+.table-wp {
+    margin: 0;
+}
+
+.table-wp thead {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.table-wp thead th {
+    color: #495057;
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    padding: 1rem;
+    border: none;
+    text-transform: uppercase;
+}
+
+.table-wp tbody tr {
+    transition: all 0.3s ease;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.table-wp tbody tr:hover {
+    background: rgba(102, 126, 234, 0.05);
+}
+
+.table-wp tbody td {
+    padding: 1rem;
+    vertical-align: middle;
+    border: none;
+}
+
+/* Row Top */
+.row-top {
+    background: linear-gradient(90deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.05) 50%, transparent 100%) !important;
+    border-left: 4px solid #667eea !important;
+}
+
+/* Ranking Badge */
+.ranking-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.ranking-badge i {
+    font-size: 1.1rem;
+}
+
+.rank-1 { color: #ffd700; }
+.rank-2 { color: #c0c0c0; }
+.rank-3 { color: #cd7f32; }
+.rank-other { color: #6c757d; }
+
+/* Code Badge */
+.code-badge-wp {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+/* Avatar */
+.avatar-wp {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+/* Vector Badges */
+.vector-badge {
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    display: inline-block;
+}
+
+.vector-s {
+    background: #f8f9fa;
+    color: #495057;
+}
+
+.vector-v {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+/* Status Badges */
+.status-badge-wp {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+}
+
+.status-top {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    color: white;
+}
+
+.status-top3 {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
+    color: #667eea;
+}
+
+.status-alt {
+    background: #f8f9fa;
+    color: #6c757d;
+    border: 1px solid #dee2e6;
+}
+
+/* Empty State */
+.empty-state-wp {
+    padding: 2rem;
+}
+
+.empty-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 3rem;
+    color: #667eea;
+}
+
+.empty-state-wp h5 {
+    color: #1a1a2e;
+    margin-bottom: 0.5rem;
+}
+
+/* Info Card */
+.info-card-wp {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    border: 1px solid #e9ecef;
+}
+
+.info-icon {
+    color: #667eea;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.info-content {
+    font-size: 0.9rem;
+    color: #495057;
+    line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .page-banner-wp {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+    }
+    
+    .page-banner-content {
+        flex-direction: column;
+    }
+    
+    .page-banner-decoration {
+        display: none;
+    }
+    
+    .top-result-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .top-result-stats {
+        justify-content: center;
+    }
+    
+    .top-result-decoration {
+        display: none;
+    }
+}

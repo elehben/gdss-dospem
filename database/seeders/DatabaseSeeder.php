@@ -27,9 +27,9 @@ class DatabaseSeeder extends Seeder
             AlternatifSeeder::class,
             KriteriaSeeder::class,
             BobotBordaSeeder::class,
-            PenilaianSeeder::class, // Menyimpan nilai awal & terbobot (Looping DM)
-            PreferensiWpSeeder::class, // Menyimpan Vector S & V (Looping DM)
-            HasilBordaSeeder::class, // Hasil Akhir
+            // PenilaianSeeder::class, // Menyimpan nilai awal & terbobot (Looping DM)
+            // PreferensiWpSeeder::class, // Menyimpan Vector S & V (Looping DM)
+            // HasilBordaSeeder::class, // Hasil Akhir
         ]);
     }
 }

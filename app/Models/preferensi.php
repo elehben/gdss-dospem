@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class preferensi extends Model
 {
     protected $table = 'preferensi_wp';
-    protected $primaryKey = 'id_preferensi';
+    protected $primaryKey = 'id_pref';
     protected $fillable = [
         'id_alt',
         'id_user',

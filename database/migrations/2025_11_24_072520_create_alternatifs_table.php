@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('alternatif', function (Blueprint $table) {
             $table->char('id_alt', 5)->primary();
             $table->string('nama_alt');
+            $table->timestamps();
         });
     }
 
@@ -22,6 +23,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('hasil_borda');
         Schema::dropIfExists('alternatif');
     }
 };

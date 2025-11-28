@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('jenis');
             $table->decimal('bobot', 10, 4);
             $table->decimal('bobot_normalisasi', 10, 4);
+            $table->timestamps();
         });
     }
 
