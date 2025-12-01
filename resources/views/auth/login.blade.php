@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     
     {{-- Custom CSS --}}
+    <link rel="icon" type="image/svg+xml" href="{{ asset('storage/download.svg') }}">
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 </head>
 <body>
