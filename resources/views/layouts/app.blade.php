@@ -206,7 +206,7 @@
 
         {{-- Footer --}}
         <footer class="main-footer">
-            <i class="bi bi-diagram-3-fill me-2 text-primary"></i>
+            <i class="bi bi-exclude me-2"></i>
             <span>&copy; {{ date('Y') }} <strong>GDSS APP</strong> - Sistem Pendukung Keputusan Kelompok | Metode WP & Borda</span>
         </footer>
     </div>
