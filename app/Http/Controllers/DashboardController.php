@@ -34,7 +34,9 @@ class DashboardController extends Controller
             
             return view('dashboard.user', [
                 'status_penilaian' => $sudahMenilai ? 'Sudah Selesai' : 'Belum Input',
-                'user_name' => $user->name
+                'user_name' => $user->name,
+                'total_kriteria' => kriteria::count(),
+                'total_alternatif' => alternatif::count(),
             ]);
         }
     }

@@ -60,6 +60,10 @@ class User extends Authenticatable implements AuthenticatableContract
         return $this->id_user === 'U0001' || $this->email === 'admin@gdss.com';
     }
 
+    public function isKadep(){
+        return $this->id_user === 'U0002' || $this->email === 'kadep@gdss.com';
+    }
+
     // --- Relasi ---
     public function penilaians()
     {

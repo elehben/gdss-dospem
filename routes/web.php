@@ -45,6 +45,12 @@ Route::middleware(['auth'])->group(function () {
     // Hasil WP Pribadi
     Route::get('/hasil-wp', [PerhitunganController::class, 'hasilWpPribadi'])->name('hasil.wp');
 
+    // Hasil Borda
+    Route::get('/hasil-borda', [PerhitunganController::class, 'hasilBorda'])->name('hasil.borda');
+
+    // Perhitungan Akhir (Borda)
+        Route::post('/hitung-borda', [PerhitunganController::class, 'hitungBorda'])->name('hitung.borda');
+
     // --- 4. KHUSUS ADMIN (Middleware 'is_admin') ---
     Route::middleware(['is_admin'])->group(function () {
         
@@ -57,10 +63,6 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/alternatif', [DataMasterController::class, 'storeAlternatif'])->name('alternatif.store');
         Route::put('/alternatif/{id}', [DataMasterController::class, 'updateAlternatif'])->name('alternatif.update');
         Route::delete('/alternatif/{id}', [DataMasterController::class, 'destroyAlternatif'])->name('alternatif.destroy');
-
-        // Perhitungan Akhir (Borda)
-        Route::get('/hasil-borda', [PerhitunganController::class, 'hasilBorda'])->name('hasil.borda');
-        Route::post('/hitung-borda', [PerhitunganController::class, 'hitungBorda'])->name('hitung.borda');
         
         // Lihat Hasil WP per Decision Maker
         Route::get('/hasil-wp/{userId}', [PerhitunganController::class, 'hasilWpDM'])->name('hasil.wp.dm');

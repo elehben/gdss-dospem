@@ -6,6 +6,8 @@
 
 @section('content')
 <div class="container py-4">
+
+    @if(auth()->check() && auth()->user()->isAdmin() || auth()->user()->isKadep())
     {{-- HEADER BANNER --}}
     <div class="page-banner-hasil mb-4">
         <div class="page-banner-content">
@@ -52,6 +54,7 @@
             </div>
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
+    @endif
     @endif
 
     {{-- WINNER CARD (if data exists and has winner) --}}

@@ -124,7 +124,7 @@ class PerhitunganController extends Controller
     public function hasilBorda()
     {
         // Pastikan hanya admin
-        if (!auth()->user()->isAdmin()) abort(403);
+        // if (!auth()->user()->isAdmin()) abort(403);
 
         // Ambil hasil yang sudah diurutkan berdasarkan Ranking Borda
         $hasil = hasil::with('alternatif')
@@ -144,7 +144,7 @@ class PerhitunganController extends Controller
      */
     public function hitungBorda()
     {
-        if (!auth()->user()->isAdmin()) abort(403);
+        if (!auth()->user()->isAdmin() && !auth()->user()->isKadep()) abort(403);
 
         // 1. Persiapan Data
         $alternatifs = alternatif::all();

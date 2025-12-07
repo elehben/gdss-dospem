@@ -77,7 +77,7 @@
                 </div>
                 <div class="mini-stat-content">
                     <span class="mini-stat-label">Total Kriteria</span>
-                    <h3 class="mini-stat-value">{{ $total_kriteria ?? 5 }}</h3>
+                    <h3 class="mini-stat-value">{{ $total_kriteria }}</h3>
                 </div>
             </div>
         </div>
@@ -88,7 +88,7 @@
                 </div>
                 <div class="mini-stat-content">
                     <span class="mini-stat-label">Total Alternatif</span>
-                    <h3 class="mini-stat-value">{{ $total_alternatif ?? 10 }}</h3>
+                    <h3 class="mini-stat-value">{{ $total_alternatif }}</h3>
                 </div>
             </div>
         </div>

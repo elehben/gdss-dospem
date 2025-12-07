@@ -121,7 +121,8 @@
                         @endforeach
                     </div>
                 </div>
-
+            @endif
+            
                 <div class="menu-label">Hasil Akhir</div>
 
                 <a href="{{ route('hasil.borda') }}" class="menu-item {{ request()->routeIs('hasil.borda') ? 'active' : '' }}">
@@ -130,7 +131,6 @@
                     </div>
                     <span class="menu-text">Hasil Borda</span>
                 </a>
-            @endif
         </div>
 
         {{-- Sidebar Footer --}}
