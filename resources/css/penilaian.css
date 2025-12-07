@@ -498,6 +498,122 @@
     box-shadow: 0 5px 20px rgba(245, 87, 108, 0.4);
 }
 
+/* ====== SKALA PENILAIAN CARDS ====== */
+.skala-card {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e9ecef;
+    overflow: hidden;
+    height: 100%;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.skala-card:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.skala-header {
+    background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+    padding: 0.875rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.skala-badge {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    padding: 0.35rem 0.65rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.75rem;
+    min-width: 32px;
+    text-align: center;
+}
+
+.skala-badge.bg-info {
+    background: linear-gradient(135deg, #00c6fb 0%, #005bea 100%) !important;
+}
+
+.skala-title {
+    margin: 0;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #2d3748;
+}
+
+.table-skala {
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+.table-skala thead th {
+    background: #f8f9fa;
+    color: #6c757d;
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0.65rem 0.875rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.table-skala tbody td {
+    padding: 0.5rem 0.875rem;
+    border-bottom: 1px solid #f1f3f4;
+    color: #495057;
+    vertical-align: middle;
+}
+
+.table-skala tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.table-skala tbody tr:hover {
+    background: #f8f9fa;
+}
+
+.nilai-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    width: 26px;
+    height: 26px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.8rem;
+}
+
+/* Skala Info Card */
+.skala-info {
+    background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+}
+
+.skala-info-content {
+    padding: 1rem;
+}
+
+.skala-info-content p {
+    margin: 0.5rem 0;
+    font-size: 0.85rem;
+    color: #495057;
+    display: flex;
+    align-items: center;
+}
+
+.skala-info-content p:first-child {
+    margin-top: 0;
+}
+
+.skala-info-content p:last-child {
+    margin-bottom: 0;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .page-banner-penilaian {
@@ -528,5 +644,9 @@
     .btn-submit-penilaian {
         width: 100%;
         justify-content: center;
+    }
+    
+    .skala-card {
+        margin-bottom: 1rem;
     }
 }

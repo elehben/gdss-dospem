@@ -148,15 +148,27 @@
                                 </td>
                                 
                                 @foreach($kriteria as $k)
+                                @php
+                                    // Tentukan max value berdasarkan kriteria
+                                    $maxValue = match($k->id_kriteria) {
+                                        'C1' => 2,  // Tingkat Pendidikan (S2=1, S3=2)
+                                        'C2' => 5,  // Jabatan Akademik (Pengajar-Profesor: 1-5)
+                                        'C3' => 5,  // Masa Jabatan Kelompok (1-5)
+                                        'C4' => 2,  // Sertifikasi Dosen (1-2)
+                                        'C5' => 5,  // Prestasi 3 Pilar (1-5)
+                                        default => 5
+                                    };
+                                @endphp
                                 <td class="text-center">
                                     <input type="number" 
                                            name="nilai[{{ $alt->id_alt }}][{{ $k->id_kriteria }}]" 
                                            class="form-control-nilai input-nilai"
                                            value="{{ $dataNilai[$alt->id_alt][$k->id_kriteria] ?? '' }}"
                                            min="1" 
-                                           max="100" 
+                                           max="{{ $maxValue }}" 
                                            required
-                                           placeholder="0">
+                                           placeholder="1-{{ $maxValue }}"
+                                           title="Nilai: 1 - {{ $maxValue }}">
                                 </td>
                                 @endforeach
                             </tr>
@@ -169,7 +181,7 @@
                 <div class="action-bar mt-4">
                     <div class="action-info">
                         <i class="bi bi-info-circle text-muted me-2"></i>
-                        <span class="text-muted">Isi nilai 1-100 untuk setiap kriteria</span>
+                        <span class="text-muted">Isi nilai sesuai skala kriteria (lihat panduan di bawah)</span>
                     </div>
                     <div class="action-buttons">
                         <button type="button" class="btn-reset-penilaian" data-bs-toggle="modal" data-bs-target="#modalReset">
@@ -184,18 +196,153 @@
         </div>
     </div>
     
-    {{-- INFO CARD --}}
-    <div class="info-card-penilaian mt-4">
-        <div class="info-icon">
-            <i class="bi bi-lightbulb-fill"></i>
-        </div>
-        <div class="info-content">
-            <strong>Panduan Penilaian:</strong><br>
-            <span class="text-muted">
-                • Berikan nilai <strong>1-100</strong> untuk setiap alternatif pada masing-masing kriteria.<br>
-                • Nilai lebih tinggi menunjukkan performa lebih baik untuk kriteria <strong>Benefit</strong>.<br>
-                • Setelah menyimpan, sistem akan otomatis menghitung rangking menggunakan metode <strong>Weighted Product (WP)</strong>.
+    {{-- INFO CARD - PANDUAN SKALA PENILAIAN --}}
+    <div class="card table-card-penilaian mt-4">
+        <div class="card-header-penilaian">
+            <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-lightbulb-fill"></i>
+                <h5 class="mb-0">Panduan Skala Penilaian</h5>
+            </div>
+            <span class="penilaian-badge bg-warning text-dark">
+                <i class="bi bi-info-circle me-1"></i>Referensi
             </span>
+        </div>
+        <div class="card-body p-4">
+            <div class="row g-4">
+                {{-- C1: Tingkat Pendidikan --}}
+                <div class="col-md-6 col-lg-4">
+                    <div class="skala-card">
+                        <div class="skala-header">
+                            <span class="skala-badge">C1</span>
+                            <h6 class="skala-title">Tingkat Pendidikan</h6>
+                        </div>
+                        <table class="table table-skala mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Kualifikasi</th>
+                                    <th class="text-center">Skala</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>S2-Magister</td><td class="text-center"><span class="nilai-badge">1</span></td></tr>
+                                <tr><td>S3-Doktor</td><td class="text-center"><span class="nilai-badge">2</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                {{-- C2: Jabatan Akademik --}}
+                <div class="col-md-6 col-lg-4">
+                    <div class="skala-card">
+                        <div class="skala-header">
+                            <span class="skala-badge">C2</span>
+                            <h6 class="skala-title">Jabatan Akademik</h6>
+                        </div>
+                        <table class="table table-skala mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Kualifikasi</th>
+                                    <th class="text-center">Skala</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Pengajar</td><td class="text-center"><span class="nilai-badge">1</span></td></tr>
+                                <tr><td>Dosen</td><td class="text-center"><span class="nilai-badge">2</span></td></tr>
+                                <tr><td>Dosen Senior</td><td class="text-center"><span class="nilai-badge">3</span></td></tr>
+                                <tr><td>Dosen Asisten</td><td class="text-center"><span class="nilai-badge">4</span></td></tr>
+                                <tr><td>Profesor</td><td class="text-center"><span class="nilai-badge">5</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                {{-- C3: Masa Jabatan Kelompok --}}
+                <div class="col-md-6 col-lg-4">
+                    <div class="skala-card">
+                        <div class="skala-header">
+                            <span class="skala-badge">C3</span>
+                            <h6 class="skala-title">Masa Jabatan Kelompok</h6>
+                        </div>
+                        <table class="table table-skala mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Kualifikasi</th>
+                                    <th class="text-center">Skala</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>0-5 tahun</td><td class="text-center"><span class="nilai-badge">1</span></td></tr>
+                                <tr><td>6-10 tahun</td><td class="text-center"><span class="nilai-badge">2</span></td></tr>
+                                <tr><td>11-15 tahun</td><td class="text-center"><span class="nilai-badge">3</span></td></tr>
+                                <tr><td>16-20 tahun</td><td class="text-center"><span class="nilai-badge">4</span></td></tr>
+                                <tr><td>> 20 tahun</td><td class="text-center"><span class="nilai-badge">5</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                {{-- C4: Sertifikasi Dosen --}}
+                <div class="col-md-6 col-lg-4">
+                    <div class="skala-card">
+                        <div class="skala-header">
+                            <span class="skala-badge">C4</span>
+                            <h6 class="skala-title">Sertifikasi Dosen</h6>
+                        </div>
+                        <table class="table table-skala mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Kualifikasi</th>
+                                    <th class="text-center">Skala</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Tidak bersertifikasi</td><td class="text-center"><span class="nilai-badge">1</span></td></tr>
+                                <tr><td>Tersertifikasi</td><td class="text-center"><span class="nilai-badge">2</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                {{-- C5: Prestasi 3 Pilar Pendidikan Tinggi --}}
+                <div class="col-md-6 col-lg-4">
+                    <div class="skala-card">
+                        <div class="skala-header">
+                            <span class="skala-badge">C5</span>
+                            <h6 class="skala-title">Pencapaian 3 Pilar</h6>
+                        </div>
+                        <table class="table table-skala mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Kualifikasi</th>
+                                    <th class="text-center">Skala</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Sangat buruk</td><td class="text-center"><span class="nilai-badge">1</span></td></tr>
+                                <tr><td>Buruk</td><td class="text-center"><span class="nilai-badge">2</span></td></tr>
+                                <tr><td>Cukup</td><td class="text-center"><span class="nilai-badge">3</span></td></tr>
+                                <tr><td>Baik</td><td class="text-center"><span class="nilai-badge">4</span></td></tr>
+                                <tr><td>Sangat baik</td><td class="text-center"><span class="nilai-badge">5</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                {{-- Info Tambahan --}}
+                <div class="col-md-6 col-lg-4">
+                    <div class="skala-card skala-info">
+                        <div class="skala-header">
+                            <span class="skala-badge bg-info">i</span>
+                            <h6 class="skala-title">Informasi</h6>
+                        </div>
+                        <div class="skala-info-content">
+                            <p><i class="bi bi-check-circle text-success me-2"></i>Semua kriteria bertipe <b> Benefit</b></p>
+                            <p><i class="bi bi-arrow-up-circle text-primary me-2"></i>Nilai lebih tinggi = performa lebih baik</p>
+                            <p><i class="bi bi-calculator text-warning me-2"></i>Sistem akan otomatis menghitung rangking dengan metode <strong>WP</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

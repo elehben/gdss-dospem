@@ -51,6 +51,48 @@
         </div>
     @endif
 
+    {{-- CHECK IF DATA IS EMPTY --}}
+    @if($hasil->isEmpty())
+    {{-- EMPTY STATE - Belum Ada Perhitungan WP --}}
+    <div class="card border-0 shadow-sm" style="border-radius: 20px; overflow: hidden;">
+        <div class="card-body text-center py-5">
+            <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                <i class="bi bi-clipboard-data" style="font-size: 3.5rem; color: #667eea;"></i>
+            </div>
+            <h4 style="font-weight: 700; color: #1a1a2e; margin-bottom: 0.75rem;">Belum Ada Hasil Perhitungan WP</h4>
+            @if(isset($viewedByAdmin) && $viewedByAdmin)
+            <p class="text-muted mb-4" style="max-width: 450px; margin: 0 auto;">
+                <strong>{{ $dmName }}</strong> belum melakukan penilaian atau perhitungan WP belum diproses.
+            </p>
+            <a href="{{ route('hasil.borda') }}" class="btn px-4 py-2" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 12px; font-weight: 600; text-decoration: none;">
+                <i class="bi bi-arrow-left me-2"></i>Kembali ke Hasil Borda
+            </a>
+            @else
+            <p class="text-muted mb-4" style="max-width: 450px; margin: 0 auto;">
+                Anda belum melakukan penilaian terhadap alternatif. Silakan lakukan penilaian terlebih dahulu untuk melihat hasil perhitungan Weighted Product.
+            </p>
+            <a href="{{ route('penilaian.index') }}" class="btn px-4 py-2" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 12px; font-weight: 600; text-decoration: none;">
+                <i class="bi bi-pencil-square me-2"></i>Input Penilaian Sekarang
+            </a>
+            @endif
+        </div>
+    </div>
+
+    {{-- INFO CARD --}}
+    <div class="info-card-wp mt-4">
+        <div class="info-icon">
+            <i class="bi bi-info-circle-fill"></i>
+        </div>
+        <div class="info-content">
+            <strong>Informasi:</strong><br>
+            <span class="text-muted">
+                • Hasil WP akan muncul setelah Anda melakukan penilaian pada menu <strong>Input Penilaian</strong>.<br>
+                • Sistem akan otomatis menghitung ranking berdasarkan metode Weighted Product.
+            </span>
+        </div>
+    </div>
+
+    @else
     {{-- TOP RESULT CARD (if data exists) --}}
     @if($hasil->isNotEmpty() && $hasil->first()->rangking_wp == 1)
     <div class="top-result-card mb-4">
@@ -251,6 +293,7 @@
             </span>
         </div>
     </div>
+    @endif
 </div>
 
 @endsection

@@ -22,9 +22,15 @@
         </div>
         <form action="{{ route('hitung.borda') }}" method="POST">
             @csrf
+            @if($wpSudahLengkap)
             <button type="submit" class="btn-calculate">
                 <i class="bi bi-calculator-fill me-2"></i>Hitung Hasil Akhir
             </button>
+            @else
+            <button type="button" class="btn-calculate" data-bs-toggle="modal" data-bs-target="#modalWPBelumLengkap">
+                <i class="bi bi-calculator-fill me-2"></i>Hitung Hasil Akhir
+            </button>
+            @endif
         </form>
         <div class="page-banner-decoration">
             <i class="bi bi-award-fill"></i>
@@ -57,6 +63,37 @@
     @endif
     @endif
 
+    {{-- CHECK IF DATA IS EMPTY --}}
+    @if($hasil->isEmpty())
+    {{-- EMPTY STATE - Belum Ada Perhitungan --}}
+    <div class="card border-0 shadow-sm" style="border-radius: 20px; overflow: hidden;">
+        <div class="card-body text-center py-5">
+            <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, rgba(240, 147, 251, 0.15) 0%, rgba(245, 87, 108, 0.15) 100%); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                <i class="bi bi-calculator" style="font-size: 3.5rem; color: #f093fb;"></i>
+            </div>
+            <h4 style="font-weight: 700; color: #1a1a2e; margin-bottom: 0.75rem;">Belum Ada Hasil Perhitungan Borda</h4>
+            <p class="text-muted mb-4" style="max-width: 450px; margin: 0 auto;">
+                Hasil akhir menggunakan metode Borda belum tersedia. Pastikan semua Decision Maker telah melakukan penilaian dan perhitungan WP, kemudian klik tombol <strong>"Hitung Hasil Akhir"</strong>.
+            </p>
+        </div>
+    </div>
+
+    {{-- INFO CARD --}}
+    <div class="info-card-hasil mt-4">
+        <div class="info-icon">
+            <i class="bi bi-info-circle-fill"></i>
+        </div>
+        <div class="info-content">
+            <strong>Informasi:</strong> 
+            Sebelum menghitung hasil akhir Borda, pastikan:
+            <ul class="mb-0 mt-2">
+                <li>Semua Decision Maker telah melakukan penilaian</li>
+                <li>Perhitungan WP untuk setiap Decision Maker sudah selesai</li>
+            </ul>
+        </div>
+    </div>
+
+    @else
     {{-- WINNER CARD (if data exists and has winner) --}}
     @if($hasil->isNotEmpty() && $hasil->first()->rangking_borda == 1)
     <div class="winner-card mb-4">
@@ -247,6 +284,40 @@
             Alternatif dengan Total Poin terbesar akan mendapatkan ranking tertinggi sebagai rekomendasi utama.
         </div>
     </div>
+    @endif
 </div>
+
+{{-- MODAL WP BELUM LENGKAP --}}
+@if(!$wpSudahLengkap)
+<div class="modal fade" id="modalWPBelumLengkap" tabindex="-1" aria-labelledby="modalWPBelumLengkapLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border: none; border-radius: 20px; overflow: hidden;">
+            <div class="modal-header border-0" style="background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); padding: 1.5rem;">
+                <h5 class="modal-title" id="modalWPBelumLengkapLabel" style="font-weight: 700; color: #5a3e00;">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>Perhitungan WP Belum Lengkap
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center" style="padding: 2rem;">
+                <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                    <i class="bi bi-people-fill" style="font-size: 2rem; color: #5a3e00;"></i>
+                </div>
+                <h5 style="font-weight: 700; color: #1a1a2e; margin-bottom: 0.75rem;">Decision Maker Belum Melakukan Penilaian</h5>
+                <p style="color: #6c757d; margin-bottom: 1rem;">
+                    Beberapa Decision Maker belum melakukan penilaian atau perhitungan WP. Hasil Borda tidak dapat dihitung sebelum semua DM menyelesaikan penilaian mereka.
+                </p>
+                <div class="text-start" style="background: #fff3cd; border-radius: 12px; padding: 1rem; margin-bottom: 1rem;">
+                    <strong style="color: #856404;"><i class="bi bi-person-x me-2"></i>Decision Maker yang belum input:</strong>
+                    <ul class="mb-0 mt-2" style="color: #856404;">
+                        @foreach($dmBelumWP as $nama)
+                        <li>{{ $nama }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 
 @endsection

@@ -131,7 +131,20 @@ class PerhitunganController extends Controller
                     ->orderBy('rangking_borda', 'asc')
                     ->get();
 
-        return view('hasil.hasil_akhir', compact('hasil'));
+        // Cek apakah semua Decision Maker sudah melakukan perhitungan WP
+        $decisionMakers = User::where('id_user', '!=', 'U0001')->get();
+        $dmBelumWP = [];
+        
+        foreach ($decisionMakers as $dm) {
+            $hasPreferensi = preferensi::where('id_user', $dm->id_user)->exists();
+            if (!$hasPreferensi) {
+                $dmBelumWP[] = $dm->name;
+            }
+        }
+        
+        $wpSudahLengkap = empty($dmBelumWP);
+
+        return view('hasil.hasil_akhir', compact('hasil', 'wpSudahLengkap', 'dmBelumWP'));
     }
 
     /**
