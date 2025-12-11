@@ -1,0 +1,9 @@
+1. Open terminal
+2. type composer install
+3. cp .env.example .env
+4. php artisan key:generate
+5. config .env database use mysql for db connection, and db name use gdss-borda. session driver use file
+6. turn on webserver, laragon or xampp
+7. in terminal type php artisan migrate, to automatically create database
+8. php artisan db:seed, to automatically insert data in database
+9. php artisan serve, to run
