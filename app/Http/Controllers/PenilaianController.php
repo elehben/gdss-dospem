@@ -33,6 +33,7 @@ class PenilaianController extends Controller
     {
         $userId = auth()->user()->id_user;
         $input = $request->input('nilai'); // Array 2D [alt][kriteria]
+        $tahun = date('Y'); // Tahun saat ini
 
         if (!$input) {
             return back()->with('error', 'Data tidak boleh kosong.');
@@ -59,7 +60,8 @@ class PenilaianController extends Controller
                         [
                             'id_user' => $userId,
                             'id_alt' => $altId,
-                            'id_kriteria' => $kriteriaId
+                            'id_kriteria' => $kriteriaId,
+                            'tahun' => $tahun
                         ],
                         [
                             'nilai_awal' => $nilaiAwal,
@@ -74,7 +76,7 @@ class PenilaianController extends Controller
 
             // Panggil Calculation Logic dari PerhitunganController
             $hitung = new PerhitunganController();
-            $hitung->hitungWpUser($userId);
+            $hitung->hitungWpUser($userId, $tahun);
 
             DB::commit();
             return redirect()->route('hasil.wp')->with('success', 'Penilaian disimpan dan WP berhasil dihitung!');

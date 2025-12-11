@@ -13,6 +13,13 @@ class PenilaianSeeder extends Seeder
      */
     public function run(): void
     {
+        // Seed data untuk tahun 2025 dan 2026
+        $this->seedForYear(2025);
+        $this->seedForYear(2026);
+    }
+
+    private function seedForYear($tahun)
+    {
         // Format Data: [Alternatif => [C1, C2, C3, C4, C5]] (Nilai Awal)
         // Nilai terbobot dihitung manual/hardcode sesuai excel agar presisi
         
@@ -63,12 +70,12 @@ class PenilaianSeeder extends Seeder
             'A09' => [1, 1.1486, 1.1791, 1.1095, 1.3160], 'A10' => [1, 1.2457, 1.1095, 1.1095, 1.4142],
         ];
 
-        $this->insertPenilaian('U0002', $dm1_raw, $dm1_weighted);
-        $this->insertPenilaian('U0003', $dm2_raw, $dm2_weighted);
-        $this->insertPenilaian('U0004', $dm3_raw, $dm3_weighted);
+        $this->insertPenilaian('U0002', $dm1_raw, $dm1_weighted, $tahun);
+        $this->insertPenilaian('U0003', $dm2_raw, $dm2_weighted, $tahun);
+        $this->insertPenilaian('U0004', $dm3_raw, $dm3_weighted, $tahun);
     }
 
-    private function insertPenilaian($userId, $rawData, $weightedData)
+    private function insertPenilaian($userId, $rawData, $weightedData, $tahun)
     {
         $data = [];
         foreach ($rawData as $altKey => $scores) {
@@ -80,6 +87,7 @@ class PenilaianSeeder extends Seeder
                     'id_kriteria' => $kriteriaId,
                     'nilai_awal' => $score,
                     'nilai_terbobot' => $weightedData[$altKey][$index],
+                    'tahun' => $tahun,
                 ];
             }
         }

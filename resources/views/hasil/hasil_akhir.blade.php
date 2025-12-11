@@ -20,8 +20,9 @@
                 <p class="page-banner-subtitle">menggunakan Metode Borda</p>
             </div>
         </div>
-        <form action="{{ route('hitung.borda') }}" method="POST">
+        <form action="{{ route('hitung.borda') }}" method="POST" id="formHitungBorda">
             @csrf
+            <input type="hidden" name="tahun" value="{{ $tahun ?? date('Y') }}">
             @if($wpSudahLengkap)
             <button type="submit" class="btn-calculate">
                 <i class="bi bi-calculator-fill me-2"></i>Hitung Hasil Akhir
@@ -34,6 +35,32 @@
         </form>
         <div class="page-banner-decoration">
             <i class="bi bi-award-fill"></i>
+        </div>
+    </div>
+
+    {{-- FILTER TAHUN --}}
+    <div class="filter-card mb-4">
+        <div class="filter-content">
+            <div class="filter-label">
+                <i class="bi bi-funnel-fill me-2"></i>
+                <span>Filter Tahun</span>
+            </div>
+            <form action="" method="GET" class="filter-form">
+                <select name="tahun" class="form-select filter-select" onchange="this.form.submit()">
+                    @if(isset($tahunList) && $tahunList->isNotEmpty())
+                        @foreach($tahunList as $t)
+                            <option value="{{ $t }}" {{ (isset($tahun) && $tahun == $t) ? 'selected' : '' }}>{{ $t }}</option>
+                        @endforeach
+                    @endif
+                    @if(!isset($tahunList) || $tahunList->isEmpty() || !$tahunList->contains($tahun ?? date('Y')))
+                        <option value="{{ $tahun ?? date('Y') }}" selected>{{ $tahun ?? date('Y') }}</option>
+                    @endif
+                </select>
+            </form>
+        </div>
+        <div class="filter-info">
+            <i class="bi bi-calendar3 me-1"></i>
+            Menampilkan data tahun <strong>{{ $tahun ?? date('Y') }}</strong>
         </div>
     </div>
 
@@ -73,7 +100,7 @@
             </div>
             <h4 style="font-weight: 700; color: #1a1a2e; margin-bottom: 0.75rem;">Belum Ada Hasil Perhitungan Borda</h4>
             <p class="text-muted mb-4" style="max-width: 450px; margin: 0 auto;">
-                Hasil akhir menggunakan metode Borda belum tersedia. Pastikan semua Decision Maker telah melakukan penilaian dan perhitungan WP, kemudian klik tombol <strong>"Hitung Hasil Akhir"</strong>.
+                Hasil akhir untuk tahun <strong>{{ $tahun ?? date('Y') }}</strong> menggunakan metode Borda belum tersedia. Pastikan semua Decision Maker telah melakukan penilaian dan perhitungan WP, kemudian klik tombol <strong>"Hitung Hasil Akhir"</strong>.
             </p>
         </div>
     </div>

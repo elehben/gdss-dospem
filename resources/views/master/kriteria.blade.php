@@ -180,6 +180,32 @@
             <span class="badge-jenis badge-cost"><i class="bi bi-arrow-down me-1"></i>Cost</span> = Semakin rendah semakin baik
         </div>
     </div>
+
+    {{-- RUMUS CARD --}}
+    <div class="formula-card mt-3">
+        <div class="formula-card-header">
+            <i class="bi bi-calculator me-2"></i>
+            <strong>Rumus Normalisasi Bobot</strong>
+        </div>
+        <div class="formula-card-body">
+            <div class="formula-display">
+                <span class="formula-var">W<sub>j</sub></span>
+                <span class="formula-equal">=</span>
+                <div class="formula-fraction">
+                    <span class="formula-numerator">W<sub>j</sub></span>
+                    <span class="formula-denominator">∑ W<sub>j</sub></span>
+                </div>
+            </div>
+            <div class="formula-description">
+                <p class="mb-1"><strong>Keterangan:</strong></p>
+                <ul class="mb-0">
+                    <li><strong>W<sub>j</sub></strong> = Bobot kriteria ke-j yang sudah dinormalisasi</li>
+                    <li><strong>W<sub>j</sub></strong> (pembilang) = Bobot awal kriteria ke-j</li>
+                    <li><strong>∑W<sub>j</sub></strong> = Jumlah total semua bobot kriteria</li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
 
 {{-- MODAL TAMBAH --}}

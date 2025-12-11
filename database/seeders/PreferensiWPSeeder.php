@@ -13,6 +13,13 @@ class PreferensiWPSeeder extends Seeder
      */
     public function run(): void
     {
+        // Seed data untuk tahun 2025 dan 2026
+        $this->seedForYear(2025);
+        $this->seedForYear(2026);
+    }
+
+    private function seedForYear($tahun)
+    {
         // Data format: [Alt => [Perkalian, Skor Pref, Ranking]]
         
         // DM 1 [cite: 3]
@@ -39,12 +46,12 @@ class PreferensiWPSeeder extends Seeder
             'A10' => [2.1689, 0.0926, 7]
         ];
 
-        $this->insertPreferensi('U0002', $dm1);
-        $this->insertPreferensi('U0003', $dm2);
-        $this->insertPreferensi('U0004', $dm3);
+        $this->insertPreferensi('U0002', $dm1, $tahun);
+        $this->insertPreferensi('U0003', $dm2, $tahun);
+        $this->insertPreferensi('U0004', $dm3, $tahun);
     }
 
-    private function insertPreferensi($userId, $data)
+    private function insertPreferensi($userId, $data, $tahun)
     {
         $insert = [];
         foreach ($data as $altId => $values) {
@@ -54,6 +61,7 @@ class PreferensiWPSeeder extends Seeder
                 'perkalian' => $values[0],
                 'skor_pref' => $values[1],
                 'rangking_wp' => $values[2],
+                'tahun' => $tahun,
             ];
         }
         DB::table('preferensi_wp')->insert($insert);

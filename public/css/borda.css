@@ -457,6 +457,71 @@
     margin-bottom: 0.5rem;
 }
 
+/* Filter Card */
+.filter-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e9ecef;
+}
+
+.filter-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.filter-label {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    color: #495057;
+}
+
+.filter-label i {
+    color: #f5576c;
+}
+
+.filter-form {
+    display: flex;
+    align-items: center;
+}
+
+.filter-select {
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 0.5rem 2.5rem 0.5rem 1rem;
+    font-weight: 600;
+    color: #495057;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 120px;
+}
+
+.filter-select:focus {
+    border-color: #f5576c;
+    box-shadow: 0 0 0 3px rgba(245, 87, 108, 0.15);
+    outline: none;
+}
+
+.filter-select:hover {
+    border-color: #f5576c;
+}
+
+.filter-info {
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+.filter-info strong {
+    color: #f5576c;
+}
+
 /* Info Card */
 .info-card-hasil {
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
@@ -507,5 +572,15 @@
     
     .winner-decoration {
         display: none;
+    }
+    
+    .filter-card {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    .filter-content {
+        flex-direction: column;
     }
 }

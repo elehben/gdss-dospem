@@ -38,6 +38,29 @@
         </div>
     </div>
 
+    {{-- FILTER TAHUN --}}
+    @if(isset($tahunList) && $tahunList->isNotEmpty())
+    <div class="filter-card mb-4">
+        <div class="filter-content">
+            <div class="filter-label">
+                <i class="bi bi-funnel-fill me-2"></i>
+                <span>Filter Tahun</span>
+            </div>
+            <form action="" method="GET" class="filter-form">
+                <select name="tahun" class="form-select filter-select" onchange="this.form.submit()">
+                    @foreach($tahunList as $t)
+                        <option value="{{ $t }}" {{ $tahun == $t ? 'selected' : '' }}>{{ $t }}</option>
+                    @endforeach
+                </select>
+            </form>
+        </div>
+        <div class="filter-info">
+            <i class="bi bi-calendar3 me-1"></i>
+            Menampilkan data tahun <strong>{{ $tahun }}</strong>
+        </div>
+    </div>
+    @endif
+
     {{-- ALERTS --}}
     @if(session('success'))
         <div class="alert alert-success alert-custom fade show" role="alert">
@@ -62,14 +85,14 @@
             <h4 style="font-weight: 700; color: #1a1a2e; margin-bottom: 0.75rem;">Belum Ada Hasil Perhitungan WP</h4>
             @if(isset($viewedByAdmin) && $viewedByAdmin)
             <p class="text-muted mb-4" style="max-width: 450px; margin: 0 auto;">
-                <strong>{{ $dmName }}</strong> belum melakukan penilaian atau perhitungan WP belum diproses.
+                <strong>{{ $dmName }}</strong> belum melakukan penilaian untuk tahun <strong>{{ $tahun }}</strong> atau perhitungan WP belum diproses.
             </p>
             <a href="{{ route('hasil.borda') }}" class="btn px-4 py-2" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 12px; font-weight: 600; text-decoration: none;">
                 <i class="bi bi-arrow-left me-2"></i>Kembali ke Hasil Borda
             </a>
             @else
             <p class="text-muted mb-4" style="max-width: 450px; margin: 0 auto;">
-                Anda belum melakukan penilaian terhadap alternatif. Silakan lakukan penilaian terlebih dahulu untuk melihat hasil perhitungan Weighted Product.
+                Anda belum melakukan penilaian untuk tahun <strong>{{ $tahun ?? date('Y') }}</strong>. Silakan lakukan penilaian terlebih dahulu untuk melihat hasil perhitungan Weighted Product.
             </p>
             <a href="{{ route('penilaian.index') }}" class="btn px-4 py-2" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 12px; font-weight: 600; text-decoration: none;">
                 <i class="bi bi-pencil-square me-2"></i>Input Penilaian Sekarang
@@ -291,6 +314,106 @@
                 • <strong>Vector S:</strong> Hasil perkalian nilai ternormalisasi pangkat bobot kriteria.<br>
                 • <strong>Vector V:</strong> Nilai preferensi relatif (Total V semua alternatif = 1). Semakin tinggi nilai V, semakin direkomendasikan.
             </span>
+        </div>
+    </div>
+
+    {{-- RUMUS WP CARD --}}
+    <div class="formula-card-wp mt-4">
+        <div class="formula-card-header-wp">
+            <i class="bi bi-calculator me-2"></i>
+            <strong>Rumus Metode Weighted Product (WP)</strong>
+        </div>
+        <div class="formula-card-body-wp">
+            <div class="row g-4">
+                {{-- Vector S --}}
+                <div class="col-lg-6">
+                    <div class="formula-box">
+                        <div class="formula-title">
+                            <span class="formula-badge">1</span>
+                            <span>Vector S (Nilai Preferensi)</span>
+                        </div>
+                        <div class="formula-display-box">
+                            <div class="formula-equation">
+                                <span class="var-main">S<sub>i</sub></span>
+                                <span class="equal-sign">=</span>
+                                <span class="product-wrapper">
+                                    <span class="product-top">n</span>
+                                    <span class="product-symbol">∏</span>
+                                    <span class="product-bottom">j=1</span>
+                                </span>
+                                <span class="var-main">X<sub>ij</sub></span><sup class="power-text">W<sub>j</sub></sup>
+                            </div>
+                        </div>
+                        <div class="formula-legend">
+                            <div class="legend-item">
+                                <span class="legend-var">S<sub>i</sub></span>
+                                <span class="legend-desc">Nilai S alternatif ke-i</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-var">X<sub>ij</sub></span>
+                                <span class="legend-desc">Nilai alternatif ke-i kriteria ke-j</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-var">W<sub>j</sub></span>
+                                <span class="legend-desc">Bobot kriteria ke-j</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Vector V --}}
+                <div class="col-lg-6">
+                    <div class="formula-box">
+                        <div class="formula-title">
+                            <span class="formula-badge">2</span>
+                            <span>Vector V (Preferensi Relatif)</span>
+                        </div>
+                        <div class="formula-display-box">
+                            <div class="formula-equation">
+                                <span class="var-main">V<sub>i</sub></span>
+                                <span class="equal-sign">=</span>
+                                {{-- Fraction with product symbols --}}
+                                <div class="fraction-box fraction-detailed">
+                                    <div class="fraction-top">
+                                        <span class="product-wrapper-sm">
+                                            <span class="product-top-sm">n</span>
+                                            <span class="product-symbol-sm">∏</span>
+                                            <span class="product-bottom-sm">j=1</span>
+                                        </span>
+                                        <span class="var-sm">X<sub>ij</sub></span><sup class="power-sm">W<sub>j</sub></sup>
+                                    </div>
+                                    <div class="fraction-line"></div>
+                                    <div class="fraction-bottom">
+                                        <span class="product-wrapper-sm">
+                                            <span class="product-top-sm">n</span>
+                                            <span class="product-symbol-sm">∏</span>
+                                            <span class="product-bottom-sm">j=1</span>
+                                        </span>
+                                        <span class="var-sm">X<sub>ij</sub><sup class="power-sm-star">*</sup></span><sup class="power-sm">W<sub>j</sub></sup>
+                                    </div>
+                                </div>
+                                <span class="equal-sign">=</span>
+                                {{-- Simplified fraction --}}
+                                <div class="fraction-box fraction-simple">
+                                    <div class="fraction-top">S<sub>i</sub></div>
+                                    <div class="fraction-line"></div>
+                                    <div class="fraction-bottom">∑ S<sub>i</sub></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="formula-legend">
+                            <div class="legend-item">
+                                <span class="legend-var">V<sub>i</sub></span>
+                                <span class="legend-desc">Nilai preferensi relatif alternatif ke-i</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-var">∑S<sub>i</sub></span>
+                                <span class="legend-desc">Total nilai S semua alternatif</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     @endif

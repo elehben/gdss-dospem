@@ -14,6 +14,7 @@ class penilaian extends Model
         'id_kriteria',
         'nilai_awal',
         'nilai_terbobot',
+        'tahun',
     ];
 
     // --- Relasi ---

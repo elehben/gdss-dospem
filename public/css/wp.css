@@ -451,6 +451,71 @@
     margin-bottom: 0.5rem;
 }
 
+/* Filter Card */
+.filter-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e9ecef;
+}
+
+.filter-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.filter-label {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    color: #495057;
+}
+
+.filter-label i {
+    color: #667eea;
+}
+
+.filter-form {
+    display: flex;
+    align-items: center;
+}
+
+.filter-select {
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 0.5rem 2.5rem 0.5rem 1rem;
+    font-weight: 600;
+    color: #495057;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 120px;
+}
+
+.filter-select:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+    outline: none;
+}
+
+.filter-select:hover {
+    border-color: #667eea;
+}
+
+.filter-info {
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+.filter-info strong {
+    color: #667eea;
+}
+
 /* Info Card */
 .info-card-wp {
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
@@ -501,5 +566,403 @@
     
     .top-result-decoration {
         display: none;
+    }
+    
+    .filter-card {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    .filter-content {
+        flex-direction: column;
+    }
+    
+    .formula-card-body-wp {
+        flex-direction: column;
+    }
+    
+    .formula-divider {
+        width: 100%;
+        height: 1px;
+    }
+}
+
+/* ====== FORMULA CARD WP ====== */
+.formula-card-wp {
+    background: white;
+    border-radius: 20px;
+    border: 1px solid #e9ecef;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(102, 126, 234, 0.12);
+}
+
+.formula-card-header-wp {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.formula-card-body-wp {
+    padding: 1.75rem;
+}
+
+/* Formula Box */
+.formula-box {
+    background: linear-gradient(145deg, #fafbff 0%, #ffffff 100%);
+    border: 2px solid #e8ecf4;
+    border-radius: 16px;
+    padding: 1.5rem;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.formula-box:hover {
+    border-color: #667eea;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+    transform: translateY(-2px);
+}
+
+.formula-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 1.25rem;
+    font-size: 1rem;
+}
+
+.formula-badge {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+/* Formula Display Box */
+.formula-display-box {
+    background: white;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    padding: 1.5rem 1rem;
+    margin-bottom: 1.25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;
+}
+
+.formula-equation {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: 'Cambria Math', 'Times New Roman', serif;
+    font-size: 1.75rem;
+    color: #2d3748;
+}
+
+.var-main {
+    font-style: italic;
+    color: #667eea;
+    font-weight: 500;
+}
+
+.equal-sign {
+    color: #495057;
+    font-weight: 400;
+}
+
+/* Product Symbol Wrapper */
+.product-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 0.25rem;
+    line-height: 1;
+}
+
+.product-top {
+    font-size: 0.85rem;
+    color: #6c757d;
+    font-style: italic;
+    margin-bottom: -4px;
+}
+
+.product-symbol {
+    font-size: 2.5rem;
+    color: #495057;
+    line-height: 1;
+}
+
+.product-bottom {
+    font-size: 0.85rem;
+    color: #6c757d;
+    font-style: italic;
+    margin-top: -4px;
+}
+
+.power-text {
+    font-size: 1rem;
+    color: #764ba2;
+    font-style: italic;
+    margin-left: -2px;
+}
+
+/* Fraction Box */
+.fraction-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 0.5rem;
+}
+
+.fraction-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    font-style: italic;
+    color: #667eea;
+    padding-bottom: 0.35rem;
+    font-size: 1.5rem;
+}
+
+.fraction-line {
+    width: 100%;
+    min-width: 60px;
+    height: 2px;
+    background: #495057;
+}
+
+.fraction-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    font-style: italic;
+    color: #764ba2;
+    padding-top: 0.35rem;
+    font-size: 1.5rem;
+}
+
+/* Detailed Fraction with Product */
+.fraction-detailed {
+    margin-right: 0.5rem;
+}
+
+.fraction-detailed .fraction-top,
+.fraction-detailed .fraction-bottom {
+    font-size: 1.1rem;
+    padding: 0.25rem 0.5rem;
+}
+
+.fraction-detailed .fraction-line {
+    min-width: 100px;
+}
+
+/* Small Product Symbol for Fraction */
+.product-wrapper-sm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+    margin-right: 0.15rem;
+}
+
+.product-top-sm {
+    font-size: 0.6rem;
+    color: #6c757d;
+    font-style: italic;
+    margin-bottom: -2px;
+}
+
+.product-symbol-sm {
+    font-size: 1.3rem;
+    color: #495057;
+    line-height: 1;
+}
+
+.product-bottom-sm {
+    font-size: 0.6rem;
+    color: #6c757d;
+    font-style: italic;
+    margin-top: -2px;
+}
+
+.var-sm {
+    font-style: italic;
+    color: #667eea;
+}
+
+.power-sm {
+    font-size: 0.7rem;
+    color: #764ba2;
+    font-style: italic;
+    vertical-align: super;
+}
+
+.power-sm-star {
+    font-size: 0.65rem;
+    color: #dc3545;
+    font-style: normal;
+    vertical-align: super;
+}
+
+/* Simplified Fraction */
+.fraction-simple {
+    margin-left: 0.5rem;
+}
+
+.fraction-simple .fraction-top,
+.fraction-simple .fraction-bottom {
+    font-size: 1.3rem;
+    padding: 0.2rem 0.4rem;
+}
+
+.fraction-simple .fraction-line {
+    min-width: 50px;
+}
+
+/* Formula Legend */
+.formula-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.875rem;
+}
+
+.legend-var {
+    font-family: 'Cambria Math', 'Times New Roman', serif;
+    font-style: italic;
+    color: #667eea;
+    font-weight: 600;
+    min-width: 40px;
+    font-size: 1rem;
+}
+
+.legend-desc {
+    color: #6c757d;
+}
+
+.legend-desc::before {
+    content: "=";
+    margin-right: 0.5rem;
+    color: #adb5bd;
+}
+
+/* Responsive */
+@media (max-width: 991.98px) {
+    .formula-card-body-wp {
+        padding: 1.25rem;
+    }
+    
+    .formula-box {
+        padding: 1.25rem;
+    }
+    
+    .formula-equation {
+        font-size: 1.5rem;
+    }
+    
+    .product-symbol {
+        font-size: 2rem;
+    }
+    
+    .fraction-top,
+    .fraction-bottom {
+        font-size: 1.25rem;
+    }
+    
+    .fraction-detailed .fraction-top,
+    .fraction-detailed .fraction-bottom {
+        font-size: 1rem;
+    }
+    
+    .product-symbol-sm {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .formula-equation {
+        font-size: 1.35rem;
+        gap: 0.4rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .product-symbol {
+        font-size: 1.75rem;
+    }
+    
+    .product-top,
+    .product-bottom {
+        font-size: 0.7rem;
+    }
+    
+    .power-text {
+        font-size: 0.85rem;
+    }
+    
+    .fraction-top,
+    .fraction-bottom {
+        font-size: 1.15rem;
+    }
+    
+    .fraction-detailed .fraction-top,
+    .fraction-detailed .fraction-bottom {
+        font-size: 0.9rem;
+    }
+    
+    .fraction-detailed .fraction-line {
+        min-width: 80px;
+    }
+    
+    .product-symbol-sm {
+        font-size: 1rem;
+    }
+    
+    .product-top-sm,
+    .product-bottom-sm {
+        font-size: 0.5rem;
+    }
+    
+    .var-sm {
+        font-size: 0.85rem;
+    }
+    
+    .power-sm {
+        font-size: 0.55rem;
+    }
+    
+    .fraction-simple .fraction-top,
+    .fraction-simple .fraction-bottom {
+        font-size: 1.1rem;
+    }
+    
+    .legend-item {
+        font-size: 0.8rem;
+    }
+    
+    .legend-var {
+        font-size: 0.9rem;
+        min-width: 35px;
     }
 }

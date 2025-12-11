@@ -17,29 +17,37 @@ class PerhitunganController extends Controller
     /**
      * Menampilkan Halaman Hasil WP Pribadi (User Login)
      */
-    public function hasilWpPribadi()
+    public function hasilWpPribadi(Request $request)
     {
         $userId = auth()->user()->id_user;
+        $tahun = $request->get('tahun', date('Y')); // Default tahun sekarang
+
+        // Ambil daftar tahun yang tersedia untuk user ini
+        $tahunList = preferensi::where('id_user', $userId)
+                        ->distinct()
+                        ->orderBy('tahun', 'desc')
+                        ->pluck('tahun');
 
         // Ambil data Preferensi WP (Hasil Hitungan) join dengan Alternatif
         $hasil = preferensi::with('alternatif')
                     ->where('id_user', $userId)
+                    ->where('tahun', $tahun)
                     ->orderBy('rangking_wp', 'asc')
                     ->get();
 
         // Cek jika data kosong (User belum menilai)
-        if ($hasil->isEmpty()) {
+        if ($hasil->isEmpty() && $tahunList->isEmpty()) {
             return redirect()->route('penilaian.index')
                              ->with('error', 'Anda belum melakukan penilaian. Silakan isi form terlebih dahulu.');
         }
 
-        return view('hasil.wp_pribadi', compact('hasil'));
+        return view('hasil.wp_pribadi', compact('hasil', 'tahun', 'tahunList'));
     }
 
     /**
      * Menampilkan Halaman Hasil WP untuk DM tertentu (Admin Only)
      */
-    public function hasilWpDM($userId)
+    public function hasilWpDM(Request $request, $userId)
     {
         // Pastikan hanya admin
         if (!auth()->user()->isAdmin()) abort(403);
@@ -50,9 +58,18 @@ class PerhitunganController extends Controller
             return redirect()->route('dashboard')->with('error', 'Decision Maker tidak ditemukan.');
         }
 
+        $tahun = $request->get('tahun', date('Y')); // Default tahun sekarang
+
+        // Ambil daftar tahun yang tersedia untuk DM ini
+        $tahunList = preferensi::where('id_user', $userId)
+                        ->distinct()
+                        ->orderBy('tahun', 'desc')
+                        ->pluck('tahun');
+
         // Ambil data Preferensi WP
         $hasil = preferensi::with('alternatif')
                     ->where('id_user', $userId)
+                    ->where('tahun', $tahun)
                     ->orderBy('rangking_wp', 'asc')
                     ->get();
 
@@ -60,18 +77,23 @@ class PerhitunganController extends Controller
         $viewedByAdmin = true;
         $dmName = $dm->name;
 
-        return view('hasil.wp_pribadi', compact('hasil', 'viewedByAdmin', 'dmName'));
+        return view('hasil.wp_pribadi', compact('hasil', 'viewedByAdmin', 'dmName', 'tahun', 'tahunList', 'userId'));
     }
 
     /**
      * LOGIKA INTI WP: Hitung Vector S & V
      * Fungsi ini dipanggil oleh PenilaianController setelah store()
      */
-    public function hitungWpUser($userId)
+    public function hitungWpUser($userId, $tahun = null)
     {
+        $tahun = $tahun ?? date('Y');
+
         // 1. Ambil data nilai terbobot dari tabel penilaian
         // Group by Alternatif agar mudah dikalikan per alternatif
-        $penilaians = penilaian::where('id_user', $userId)->get()->groupBy('id_alt');
+        $penilaians = penilaian::where('id_user', $userId)
+                        ->where('tahun', $tahun)
+                        ->get()
+                        ->groupBy('id_alt');
         
         $vectorS = [];
         $totalS = 0;
@@ -107,7 +129,8 @@ class PerhitunganController extends Controller
             preferensi::updateOrCreate(
                 [
                     'id_user' => $userId,
-                    'id_alt' => $altId
+                    'id_alt' => $altId,
+                    'tahun' => $tahun
                 ],
                 [
                     'perkalian' => $nilaiS,     // Nilai Vector S
@@ -121,22 +144,30 @@ class PerhitunganController extends Controller
     /**
      * TAMPILAN HASIL AKHIR (BORDA) - ADMIN ONLY
      */
-    public function hasilBorda()
+    public function hasilBorda(Request $request)
     {
         // Pastikan hanya admin
         // if (!auth()->user()->isAdmin()) abort(403);
 
+        $tahun = $request->get('tahun', date('Y')); // Default tahun sekarang
+
+        // Ambil daftar tahun yang tersedia
+        $tahunList = hasil::distinct()->orderBy('tahun', 'desc')->pluck('tahun');
+
         // Ambil hasil yang sudah diurutkan berdasarkan Ranking Borda
         $hasil = hasil::with('alternatif')
+                    ->where('tahun', $tahun)
                     ->orderBy('rangking_borda', 'asc')
                     ->get();
 
-        // Cek apakah semua Decision Maker sudah melakukan perhitungan WP
+        // Cek apakah semua Decision Maker sudah melakukan perhitungan WP untuk tahun ini
         $decisionMakers = User::where('id_user', '!=', 'U0001')->get();
         $dmBelumWP = [];
         
         foreach ($decisionMakers as $dm) {
-            $hasPreferensi = preferensi::where('id_user', $dm->id_user)->exists();
+            $hasPreferensi = preferensi::where('id_user', $dm->id_user)
+                                ->where('tahun', $tahun)
+                                ->exists();
             if (!$hasPreferensi) {
                 $dmBelumWP[] = $dm->name;
             }
@@ -144,7 +175,7 @@ class PerhitunganController extends Controller
         
         $wpSudahLengkap = empty($dmBelumWP);
 
-        return view('hasil.hasil_akhir', compact('hasil', 'wpSudahLengkap', 'dmBelumWP'));
+        return view('hasil.hasil_akhir', compact('hasil', 'wpSudahLengkap', 'dmBelumWP', 'tahun', 'tahunList'));
     }
 
     /**
@@ -155,9 +186,11 @@ class PerhitunganController extends Controller
      * - Total Poin Borda = Σ (Skor Preferensi WP × Bobot Borda berdasarkan ranking)
      * - Nilai Borda = Total Poin / Σ Total Poin (semua alternatif)
      */
-    public function hitungBorda()
+    public function hitungBorda(Request $request)
     {
         if (!auth()->user()->isAdmin() && !auth()->user()->isKadep()) abort(403);
+
+        $tahun = $request->get('tahun', date('Y'));
 
         // 1. Persiapan Data
         $alternatifs = alternatif::all();
@@ -167,8 +200,8 @@ class PerhitunganController extends Controller
         // Contoh: [1 => 9, 2 => 8, ... 10 => 0]
         $refBobot = borda::pluck('bobot_borda', 'ranking')->toArray();
 
-        // Bersihkan hasil lama agar tidak duplikat
-        DB::table('hasil_borda')->truncate();
+        // Bersihkan hasil lama untuk tahun ini agar tidak duplikat
+        DB::table('hasil_borda')->where('tahun', $tahun)->delete();
 
         $tempHasil = [];
         $grandTotalPoin = 0; // Total poin seluruh alternatif
@@ -178,9 +211,10 @@ class PerhitunganController extends Controller
             $totalPoin = 0;
 
             foreach ($users as $user) {
-                // Ambil data preferensi WP dari user ini untuk alternatif ini
+                // Ambil data preferensi WP dari user ini untuk alternatif ini (tahun tertentu)
                 $pref = preferensi::where('id_user', $user->id_user)
                             ->where('id_alt', $alt->id_alt)
+                            ->where('tahun', $tahun)
                             ->first();
 
                 if ($pref) {
@@ -228,10 +262,11 @@ class PerhitunganController extends Controller
                 'id_alt' => $item['id_alt'],
                 'total_poin' => $item['total_poin'],
                 'nilai_borda' => $item['nilai_borda'],
-                'rangking_borda' => $rank++
+                'rangking_borda' => $rank++,
+                'tahun' => $tahun
             ]);
         }
 
-        return back()->with('success', 'Perhitungan Borda Selesai! Hasil akhir telah diperbarui.');
+        return back()->with('success', 'Perhitungan Borda Selesai! Hasil akhir tahun ' . $tahun . ' telah diperbarui.');
     }
 }

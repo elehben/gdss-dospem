@@ -14,6 +14,7 @@ class preferensi extends Model
         'perkalian', // Vector S
         'skor_pref', // Vector V
         'rangking_wp',
+        'tahun',
     ];
 
     // --- Relasi ---

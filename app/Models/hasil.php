@@ -13,6 +13,7 @@ class hasil extends Model
         'total_poin',
         'nilai_borda',
         'rangking_borda',
+        'tahun',
     ];
 
     // --- Relasi ---

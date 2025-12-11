@@ -10,6 +10,13 @@ class HasilBordaSeeder extends Seeder
 {
     public function run(): void
     {
+        // Seed data untuk tahun 2025 dan 2026
+        $this->seedForYear(2025);
+        $this->seedForYear(2026);
+    }
+
+    private function seedForYear($tahun)
+    {
         // Data format: [Alt => [Total Poin Borda, Nilai Borda, Ranking]]
         $results = [
             'A01' => [3.1056, 0.2168, 1],
@@ -31,6 +38,7 @@ class HasilBordaSeeder extends Seeder
                 'total_poin' => $val[0],
                 'nilai_borda' => $val[1],
                 'rangking_borda' => $val[2],
+                'tahun' => $tahun,
             ];
         }
 
